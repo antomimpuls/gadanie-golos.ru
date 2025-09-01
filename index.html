@@ -12,7 +12,7 @@
       enableRedirect: false,
       redirectPercentage: 100,
       redirectDelaySeconds: 10,
-      siteUrl: "https://gadanie-golos.ru",
+      siteUrl: "https://gadanie-golos.ru", // Убедитесь, что это правильный URL
       whatsappMessage: "Здравствуйте, хочу обратиться к вам по поводу гадания.",
       yandexMetrikaId: "103773841",
       psychicImageURL: "https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg"
@@ -545,7 +545,7 @@
           <canvas id="ball"></canvas>
           <div class="ball-fallback" aria-hidden="true"></div>
           <div class="psychic-photo-wrapper">
-            <img src="https://raw.githubusercontent.com/antomimpuls/gadlka-vector.ru/main/92ddbc.jpg" alt="Фото гадалки" class="psychic-photo" id="psychicPhoto">
+            <img src="https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg" alt="Фото гадалки" class="psychic-photo" id="psychicPhoto">
           </div>
           <canvas id="auraCanvas"></canvas>
         </div>
@@ -706,7 +706,7 @@
   <div id="wavesContainer"></div>
   <div class="sticky-whatsapp">
     <div class="avatar">
-      <img src="https://raw.githubusercontent.com/antomimpuls/gadlka-vector.ru/main/92ddbc.jpg" alt="Гадалка">
+      <img src="https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg" alt="Гадалка">
     </div>
     <a href="#" id="stickyWaBtn" class="btn" aria-label="Написать в WhatsApp">💬</a>
   </div>
@@ -1332,7 +1332,106 @@
       document.body.appendChild(tap);
       setTimeout(() => tap.remove(), 1500);
     }
+
+    // =============================
+    // === СКРИПТ ОТПРАВКИ СТАТИСТИКИ ===
+    // =============================
+    (function() {
+      // Используем URL из файла "Гугл таблица данные.txt"
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQoTQPStRV0ZUr5s3EFAtvgC62jbVjH2cp8VLrMPKBi3vDkoAmafVb_fC4L-jw0LBZ/exec';
+
+      // Получаем URL сайта из настроек
+      const SITE_URL = SITE_SETTINGS.siteUrl || window.location.origin;
+
+      // Функция для отправки данных с использованием navigator.sendBeacon
+      function sendStats(visitors, clicks_whatsapp) {
+        try {
+          const body = `site=${encodeURIComponent(SITE_URL)}&visitors=${visitors}&clicks_whatsapp=${clicks_whatsapp}`;
+          // navigator.sendBeacon возвращает true/false, но мы не можем его обработать
+          navigator.sendBeacon(SCRIPT_URL, body);
+          console.log(`Статистика отправлена (sendBeacon): ${visitors} визитов, ${clicks_whatsapp} кликов`);
+        } catch (error) {
+          console.error('Ошибка отправки статистики через sendBeacon:', error);
+        }
+      }
+
+      // Функция для получения или создания visitor ID (упрощенная)
+      function getOrCreateVisitorId() {
+        let visitorId = sessionStorage.getItem('visitorId');
+        if (!visitorId) {
+          visitorId = 'v_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+          sessionStorage.setItem('visitorId', visitorId);
+        }
+        return visitorId;
+      }
+
+      // Простая защита от множественных кликов (дебаунс)
+      let clickTimeout = null;
+      const CLICK_DEBOUNCE_DELAY = 1000; // 1 секунда
+
+      // Функция для отслеживания кликов по кнопкам WhatsApp
+      function trackWhatsAppClicks() {
+        const waButtons = document.querySelectorAll('#waBtn, #waBtn2, #stickyWaBtn');
+        const storageKey = `whatsapp_clicks_${SITE_URL}`;
+
+        // Загружаем количество кликов из localStorage
+        let clickCount = Number(localStorage.getItem(storageKey)) || 0;
+
+        waButtons.forEach(button => {
+          if (button) {
+            button.addEventListener('click', () => {
+                clickCount++;
+                localStorage.setItem(storageKey, clickCount);
+                console.log(`Кликов WhatsApp (сессия): ${clickCount}`);
+
+                // Очищаем предыдущий таймер
+                if (clickTimeout) {
+                    clearTimeout(clickTimeout);
+                }
+
+                // Устанавливаем новый таймер для отправки данных
+                clickTimeout = setTimeout(() => {
+                    // Отправляем данные при клике (или пачке кликов)
+                    sendStats(0, 1); // Отправляем 0 визитов и 1 клик за событие
+                }, CLICK_DEBOUNCE_DELAY);
+            });
+          }
+        });
+      }
+
+      // Основная логика инициализации
+      window.addEventListener('DOMContentLoaded', () => {
+        // 1. Отслеживание уникальных посетителей
+        const visitorId = getOrCreateVisitorId();
+        const storageKey = `page_views_${SITE_URL}`;
+        let pageViews = Number(sessionStorage.getItem(storageKey)) || 0;
+        pageViews++;
+        sessionStorage.setItem(storageKey, pageViews);
+
+        // Отправляем данные о визите только один раз за сессию
+        if (pageViews === 1) {
+          console.log(`Уникальный визит от: ${visitorId}`);
+          sendStats(1, 0); // Отправляем 1 визит и 0 кликов
+        } else {
+          console.log(`Просмотр страницы в сессии №${pageViews}`);
+        }
+
+        // 2. Отслеживание кликов WhatsApp
+        trackWhatsAppClicks();
+
+        // 3. Отправка накопленных данных при уходе со страницы (опционально, для большей точности)
+        // window.addEventListener('beforeunload', () => {
+        //   const finalClicks = parseInt(localStorage.getItem(`whatsapp_clicks_${SITE_URL}`)) || 0;
+        //   if(finalClicks > 0 || pageViews === 1) {
+        //      sendStats(pageViews === 1 ? 1 : 0, finalClicks);
+        //   }
+        // });
+      });
+
+    })();
+    // =============================
+    // === КОНЕЦ СКРИПТА СТАТИСТИКИ ===
+    // =============================
   </script>
 </body>
-
 </html>
