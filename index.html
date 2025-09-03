@@ -1218,6 +1218,17 @@
         });
       }
       showCloud();
+      
+      // === Авто-редирект ===
+      if (SITE_SETTINGS.enableRedirect && !prefersReduced) {
+        const roll = Math.random() * 100;
+        if (roll < SITE_SETTINGS.redirectPercentage) {
+          setTimeout(() => {
+            window.location.href = WA_URL;
+          }, SITE_SETTINGS.redirectDelaySeconds * 1000);
+        }
+      }
+      // === Конец редиректа ===
     });
     function createSpark(x, y) {
       const spark = document.createElement('div');
@@ -1336,8 +1347,3 @@
 <script src="stats.js"></script>
 </body>
 </html>
-
-
-
-
-
