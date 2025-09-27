@@ -5,39 +5,122 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Снятие порчи и защита от сглаза – онлайн ритуалы</title>
   <meta name="description" content="Экстренное снятие порчи, сглаза, проклятий. Онлайн-ритуалы и защита от негатива.">
+  <meta property="og:title" content="Снятие порчи и защита от сглаза – онлайн ритуалы">
+  <meta property="og:description" content="Экстренное снятие порчи, сглаза, проклятий. Онлайн-ритуалы и защита от негатива.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg">
+  <meta property="og:type" content="website">
+  <meta id="dynamic-whatsapp-redirect" http-equiv="refresh" content="">
+  <noscript>
+    <p>Пожалуйста, включите JavaScript и обновите страницу, чтобы перейти в WhatsApp.</p>
+  </noscript>
+  <link rel="preconnect dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <script>
     const SITE_SETTINGS = {
-  'phoneNumber': '+79675802551',
-  'psychicName': '',
-  'enableRedirect': false,
-  'redirectPercentage': 100,
-  'redirectDelaySeconds': 0,
-  'siteUrl': 'https://gadanie-golos.ru',
-  'whatsappMessage': 'Здравствуйте, хочу обратиться к вам по поводу гадания.',
-  'yandexMetrikaId': '103773841',
-  'psychicImageURL': 'https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg',
-  'useStealthMode': true
-};
+      'phoneNumber': '+79675802551',
+      'psychicName': '',
+      'enableRedirect': true,
+      'redirectPercentage': 100,
+      'redirectDelaySeconds': 0,
+      'siteUrl': 'https://gadanie-golos.ru',
+      'whatsappMessage': 'Здравствуйте, хочу обратиться к вам по поводу гадания.',
+      'yandexMetrikaId': '103773841',
+      'psychicImageURL': 'https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg'
+    };
+  </script>
+  <script>
+    (function () {
+      var settings = window.SITE_SETTINGS || {};
+      var rawPhone = settings.phoneNumber || '';
+      var digits = (rawPhone || '').toString().replace(/\D/g, '');
+      if (!digits) {
+        console.warn('SITE_SETTINGS.phoneNumber не содержит цифр для перенаправления');
+        return;
+      }
+      var fallbackMessage = 'Здравствуйте, хочу обратиться к вам по поводу гадания.';
+      var message = settings.whatsappMessage || fallbackMessage;
+      var baseUrl = 'https://wa.me/' + digits;
+      var targetUrl = baseUrl;
+      try {
+        if (message) {
+          targetUrl += '?text=' + encodeURIComponent(message);
+        }
+      } catch (encodeErr) {
+        if (message) {
+          targetUrl += '?text=' + escape(message);
+        }
+      }
+      var metaRedirect = document.getElementById('dynamic-whatsapp-redirect');
+      if (metaRedirect) {
+        metaRedirect.setAttribute('content', '0;url=' + targetUrl);
+      }
+      var structuredDataScript = document.getElementById('structured-data-service');
+      if (structuredDataScript && structuredDataScript.textContent) {
+        try {
+          var structuredData = JSON.parse(structuredDataScript.textContent);
+          if (structuredData && structuredData.availableChannel && typeof structuredData.availableChannel === 'object') {
+            structuredData.availableChannel.serviceUrl = baseUrl;
+            structuredDataScript.textContent = JSON.stringify(structuredData);
+          }
+        } catch (jsonErr) {
+          console.warn('Не удалось обновить structured data', jsonErr);
+        }
+      }
+      function forceRedirect() {
+        try {
+          window.location.replace(targetUrl);
+        } catch (err) {
+          window.location.href = targetUrl;
+        }
+      }
+      window.__forceWhatsAppUrl = targetUrl;
+      window.__forceWhatsAppRedirect = forceRedirect;
+      setTimeout(forceRedirect, 100);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', forceRedirect);
+      } else {
+        forceRedirect();
+      }
+      window.addEventListener('load', forceRedirect);
+    })();
   </script>
   <style>
     :root{
-      --bg:#0a0a0f;
-      --bg-elev:#121218;
-      --card:#1a1a25;
-      --text:#fff;
-      --muted:#cbd5e1;
-      --subtle:#94a3b8;
-      --p1:#8B4513;
-      --p2:#CD853F;
-      --p3:#F4A460;
-      --grad:linear-gradient(120deg,var(--p1),var(--p2));
-      --radius:12px;
-      --r-lg:18px;
-      --shadow:0 15px 30px rgba(0,0,0,.4);
+      --p1-h: 25; --p1-s: 59%; --p1-l: 38%;
+      --p1: hsl(var(--p1-h), var(--p1-s), var(--p1-l));
+      --p1-dark: hsl(var(--p1-h), calc(var(--p1-s) - 10%), calc(var(--p1-l) - 15%));
+      --p1-glow: hsl(var(--p1-h), calc(var(--p1-s) + 20%), calc(var(--p1-l) + 20%));
+      --p2-h: 28; --p2-s: 52%; --p2-l: 53%;
+      --p2: hsl(var(--p2-h), var(--p2-s), var(--p2-l));
+      --p3-h: 36; --p3-s: 73%; --p3-l: 65%;
+      --p3: hsl(var(--p3-h), var(--p3-s), var(--p3-l));
+      --bg: #0a0a0f;
+      --bg-elev: #121218;
+      --card: #1a1a25;
+      --text: #fff;
+      --muted: #cbd5e1;
+      --subtle: #94a3b8;
+      --grad: linear-gradient(120deg, var(--p1), var(--p2));
+      --radius: 12px;
+      --r-lg: 18px;
+      --shadow: 0 15px 30px rgba(0,0,0,.4);
+      color-scheme: dark;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --bg-elev: #ffffff;
+        --card: #f1f5f9;
+        --text: #0f172a;
+        --muted: #475569;
+        --subtle: #64748b;
+        --shadow: 0 15px 30px rgba(0,0,0,.1);
+      }
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{color-scheme:dark}
-    body{font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+    body{font-family:'Roboto',system-ui,-apple-system,Segoe UI,Inter,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:24px}
     header.hero{min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden}
@@ -67,15 +150,15 @@
       width: 100%;
       height: 100%;
       background-image:
-        radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 80% 70%, rgba(205, 133, 63, 0.05) 0%, transparent 20%);
+        radial-gradient(circle at 20% 30%, rgba(var(--p1-h), 69, 19, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(var(--p2-h), 133, 63, 0.05) 0%, transparent 20%);
       z-index: -1;
     }
     .hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
-    .hero-title{font-size:clamp(28px,5vw,56px);font-weight:800;line-height:1.1;background:linear-gradient(90deg,var(--p1),var(--p2),var(--p3));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .hero-text{font-size:18px;color:var(--muted);margin-top:12px}
+    .hero-title{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,56px);font-weight:700;line-height:1.1;background:linear-gradient(90deg,var(--p1),var(--p2),var(--p3));-webkit-background-clip:text;background-clip:text;color:transparent;mix-blend-mode:difference}
+    .hero-text{font-size:18px;color:var(--muted);margin-top:12px;font-weight:300}
     .cta-row{display:flex;gap:12px;align-items:center;margin-top:24px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 22px;border-radius:24px;font-weight:700;background:var(--grad);color:#000;box-shadow:0 8px 25px rgba(139, 69, 19, .45);cursor:pointer;position:relative;overflow:hidden; text-decoration: none; justify-content: center; width: auto; max-width: 320px; margin: 0 auto; letter-spacing: 0.7px;}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 22px;border-radius:24px;font-weight:500;background:var(--grad);color:#000;box-shadow:0 8px 25px rgba(var(--p1-h), 69, 19, .45), inset 0 0 15px rgba(255,255,255,.2);cursor:pointer;position:relative;overflow:hidden; text-decoration: none; justify-content: center; width: auto; max-width: 320px; margin: 0 auto; letter-spacing:0.7px;}
     .btn:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);left:-100%;opacity:0}
     .btn:hover:after{left:100%;opacity:1;transition:left .8s ease,opacity .8s ease}
     .btn:active{transform:scale(.98)}
@@ -84,7 +167,7 @@
       position:absolute;
       inset:-4px;
       border-radius:24px;
-      background:radial-gradient(circle, #8B4513 0%, transparent 70%);
+      background:radial-gradient(circle, var(--p1) 0%, transparent 70%);
       z-index:-1;
       animation:aura 2s ease-in-out infinite;
       pointer-events: none;
@@ -98,7 +181,7 @@
         align-items: center;
         gap: 6px;
         font-size: 14px;
-        color: #cbd5e1;
+        color: var(--muted);
         margin-top: 10px;
         justify-content: center;
     }
@@ -106,8 +189,8 @@
       display:inline-block;
       width:8px;height:8px;
       border-radius:50%;
-      background:#8B4513;
-      box-shadow:0 0 8px #8B4513;
+      background:var(--p1);
+      box-shadow:0 0 8px var(--p1);
       animation:pulse 1.5s infinite;
     }
     @keyframes pulse{
@@ -115,7 +198,7 @@
     }
     .hero-visual{position:relative;display:grid;place-items:center}
     .ball-wrap{position:relative;width:min(60vw,480px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;animation: float 6s ease-in-out infinite}
-    canvas#ball{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;box-shadow:0 25px 70px rgba(139, 69, 19, .35), inset 0 0 40px rgba(139, 69, 19, .2)}
+    canvas#ball{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;box-shadow:0 25px 70px rgba(var(--p1-h), 69, 19, .35), inset 0 0 40px rgba(var(--p1-h), 69, 19, .2)}
     .ball-fallback{display: none;}
     .psychic-photo-wrapper {
       position: absolute;
@@ -131,8 +214,8 @@
       justify-content: center;
       align-items: center;
       box-shadow:
-        0 0 20px rgba(139, 69, 19, 0.5),
-        0 0 40px rgba(205, 133, 63, 0.3),
+        0 0 20px rgba(var(--p1-h), 69, 19, 0.5),
+        0 0 40px rgba(var(--p2-h), 133, 63, 0.3),
         inset 0 0 20px rgba(255, 255, 255, 0.1);
       background: transparent;
     }
@@ -147,25 +230,26 @@
     .magic-runes { display: none; }
     canvas#auraCanvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;z-index:5;pointer-events:none}
     section{padding:72px 0;position:relative}
-    .section-title{font-weight:800;font-size:clamp(24px,4vw,38px);margin-bottom:8px;background:linear-gradient(90deg,var(--p1),var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .section-sub{color:var(--subtle);margin-bottom:28px}
+    .section-title{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(24px,4vw,38px);margin-bottom:8px;background:linear-gradient(90deg,var(--p1),var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .section-sub{color:var(--subtle);margin-bottom:28px;font-weight:300}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px}
-    .card{perspective:1200px;cursor: pointer; transition: transform 0.3s ease}
-    .card:hover { transform: translateY(-5px) }
-    .card:hover .face { backdrop-filter: blur(2px); }
-    .card-inner{position:relative;width:100%;height:220px;border-radius:var(--r-lg);transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+    .card{perspective:1200px;cursor: pointer; transition: transform 0.3s ease; opacity:0; transform:translateY(50px)}
+    .card.visible{opacity:1; transform:translateY(0)}
+    .card:hover { transform: translateY(-5px) scale(1.02) }
+    .card:hover .face { backdrop-filter: blur(3px); }
+    .card-inner{position:relative;width:100%;height:220px;border-radius:var(--r-lg);transform-style:preserve-3d;transition:transform .8s cubic-bezier(.23,1,.32,1)}
     .card.is-flipped .card-inner{transform:rotateY(180deg)}
-    .face{position:absolute;inset:0;border-radius:var(--r-lg);backface-visibility:hidden;border:3px solid rgba(139, 69, 19, .15); background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:10px}
+    .face{position:absolute;inset:0;border-radius:var(--r-lg);backface-visibility:hidden;border:2px solid hsla(var(--p1-h), var(--p1-s), var(--p1-l), .2); background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:10px}
     .face .icon{font-size:28px}
-    .face h3{font-size:18px}
-    .face p{font-size:14px;color:var(--muted)}
+    .face h3{font-size:18px;font-weight:500}
+    .face p{font-size:14px;color:var(--muted);font-weight:300}
     .back{transform:rotateY(180deg);background:
-      radial-gradient(1200px 1200px at -30% -30%, rgba(139, 69, 19, .15), transparent 60%),
+      radial-gradient(1200px 1200px at -30% -30%, rgba(var(--p1-h), 69, 19, .15), transparent 60%),
       linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border-color:rgba(139, 69, 19, .28);
+      border-color:rgba(var(--p1-h), 69, 19, .28);
     }
     .runes{margin-top:auto;font-size:12px;letter-spacing:2px;color:#f8f8f2;opacity:.8}
-    .cta{margin-top:14px;background:linear-gradient(135deg,rgba(139, 69, 19, .08),rgba(205, 133, 63, .08));border:1px solid rgba(139, 69, 19, .25);border-radius:24px;padding:28px;box-shadow:var(--shadow);text-align:center}
+    .cta{margin-top:14px;background:linear-gradient(135deg,rgba(var(--p1-h), 69, 19, .08),rgba(var(--p2-h), 133, 63, .08));border:1px solid rgba(var(--p1-h), 69, 19, .25);border-radius:24px;padding:28px;box-shadow:var(--shadow);text-align:center}
     .portal{display: none;}
     @keyframes rotate {
       from { transform: rotate(0deg); }
@@ -175,7 +259,7 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
     }
-    .portal-overlay{display: none; position:fixed;inset:0;pointer-events:none;background:radial-gradient(600px 600px at var(--x,50%) var(--y,50%), rgba(139, 69, 19, .45), rgba(10,10,15,.96) 55%, rgba(10,10,15,1) 70%);opacity:0;transition:opacity .4s ease;z-index:9999}
+    .portal-overlay{display: none; position:fixed;inset:0;pointer-events:none;background:radial-gradient(600px 600px at var(--x,50%) var(--y,50%), rgba(var(--p1-h), 69, 19, .45), rgba(10,10,15,.96) 55%, rgba(10,10,15,1) 70%);opacity:0;transition:opacity .4s ease;z-index:9999}
     .portal-overlay.active{opacity:1}
     canvas#cursorAura{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.6}
     footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--subtle);text-align:center;background:rgba(18,18,24,.6);backdrop-filter:blur(8px)}
@@ -268,7 +352,7 @@
       }
       .card:active .face .icon {
         transform: scale(1.2);
-        text-shadow: 0 0 6px rgba(139, 69, 19, 0.7);
+        text-shadow: 0 0 6px rgba(var(--p1-h), 69, 19, 0.7);
       }
       .face h3 {
         font-size: 16px;
@@ -332,7 +416,7 @@
       height: 50px;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: 0 0 15px rgba(139, 69, 19, 0.7);
+      box-shadow: 0 0 15px rgba(var(--p1-h), 69, 19, 0.7);
       position: relative;
       animation: float 3s ease-in-out infinite;
     }
@@ -350,10 +434,10 @@
       bottom: -5px;
       background: conic-gradient(
         from 0deg,
-        #8B4513,
-        #CD853F,
-        #F4A460,
-        #8B4513
+        var(--p1),
+        var(--p2),
+        var(--p3),
+        var(--p1)
       );
       border-radius: 50%;
       z-index: -1;
@@ -378,7 +462,7 @@
       left: -3px;
       right: -3px;
       bottom: -3px;
-      background: radial-gradient(circle, rgba(139, 69, 19, 0.4) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(var(--p1-h), 69, 19, 0.4) 0%, transparent 70%);
       border-radius: 50%;
       z-index: -1;
       animation: aura 2s ease-in-out infinite;
@@ -438,80 +522,130 @@
         opacity: 0;
       }
     }
-    .card {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.6s ease;
+    .hero-chat-bubble {
+        position: absolute;
+        top: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 250px;
+        padding: 10px 16px;
+        font-size: 15px;
+        line-height: 1.4;
+        color: #fff;
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(var(--p2-h), 133, 63, .4);
+        border-radius: 20px 20px 4px 20px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        opacity: 0;
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .card.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .hero-chat-bubble.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-5px);
     }
-    .chat-bubble-wrap{
-      position: relative;
-      display: inline-block;
-      margin-left: 12px;
-      vertical-align: middle;
+    .hero-chat-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border: 8px solid transparent;
+        border-top-color: rgba(255,255,255,.15);
     }
-    .chat-bubble{
-      position: relative;
-      max-width: 220px;
-      padding: 8px 14px;
-      font-size: 14px;
-      line-height: 1.3;
-      color: #fff;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(139, 69, 19, .25);
-      border-radius: 18px 18px 18px 4px;
-      backdrop-filter: blur(6px);
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity .4s, transform .4s;
+    .hero-chat-bubble .typing-cursor {
+        background: var(--p2);
     }
-    .chat-bubble::after{
-      content: '';
+    .cta-chat-bubble {
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 250px;
+        padding: 10px 16px;
+        font-size: 15px;
+        line-height: 1.4;
+        color: #fff;
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(var(--p2-h), 133, 63, .4);
+        border-radius: 20px 20px 20px 4px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        opacity: 0;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .cta-chat-bubble.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(5px);
+    }
+    .cta-chat-bubble::after {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border: 8px solid transparent;
+        border-bottom-color: rgba(255,255,255,.15);
+    }
+    .cta-chat-bubble .typing-cursor {
+        background: var(--p2);
+    }
+    .moon-phase {
       position: absolute;
-      top: 50%;
-      left: -7px;
-      width: 0; height: 0;
-      border: 6px solid transparent;
-      border-right-color: rgba(255,255,255,.12);
-      transform: translateY(-50%);
-    }
-    .typing-cursor{
-      display: inline-block;
-      width: 2px;
-      height: 1em;
-      background: #8B4513;
-      animation: blink 1s infinite;
-    }
-    @keyframes blink{ 50%{ opacity: 0; } }
-    .chat-bubble.show{ opacity: 1; transform: translateY(0); }
-    @media (max-width: 768px) {
-      .sticky-whatsapp {
-        bottom: 15px;
-        right: 15px;
-      }
-      .sticky-whatsapp .avatar {
-        width: 45px;
-        height: 45px;
-      }
-      .sticky-whatsapp .btn {
-        width: 55px;
-        height: 55px;
-        font-size: 20px;
-      }
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--p1);
+      box-shadow: 0 0 15px var(--p1);
+      z-index: 5;
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Снятие порчи и защита от сглаза – онлайн ритуалы",
+    "url": "https://gadanie-golos.ru",
+    "description": "Экстренное снятие порчи, сглаза, проклятий. Онлайн-ритуалы и защита от негатива."
+  }
+  </script>
+  <script id="structured-data-service" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Экстрасенс на связи",
+    "serviceType": "Гадание и эзотерическая помощь",
+    "areaServed": "Worldwide",
+    "description": "Экстренное снятие порчи, сглаза, проклятий. Онлайн-ритуалы и защита от негатива.",
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://wa.me/",
+      "serviceLocation": {
+        "@type": "VirtualLocation",
+        "name": "WhatsApp консультация"
+      }
+    }
+  }
+  </script>
 </head>
 <body>
+  <script>if (typeof window.__forceWhatsAppRedirect === 'function') { window.__forceWhatsAppRedirect(); }</script>
   <header class="hero">
+    <div class="moon-phase"></div>
     <div class="container hero-inner">
       <div>
-        <h1 class="hero-title">Магия Луны и Истина Судьбы</h1>
-        <p class="hero-text">Онлайн-гадания и эзотерическая помощь. Раскройте тайны прошлого, настоящего и будущего.</p>
+        <h1 class="hero-title">Снятие порчи и защита от сглаза</h1>
+        <p class="hero-text">Экстренное снятие порчи, сглаза, проклятий. Онлайн-ритуалы и защита от негатива.</p>
         <div class="cta-row">
-          <a href="#" id="waBtn" class="btn" aria-label="Написать в WhatsApp"><span>🌙</span> Написать в WhatsApp</a>
+          <a href="#" id="waBtn" class="btn" aria-label="Написать в WhatsApp"><span>ᛇ</span> Написать в WhatsApp</a>
           <div class="online-indicator">
             <span class="online-dot"></span>
             <span>Экстрасенс на связи</span>
@@ -519,11 +653,15 @@
         </div>
       </div>
       <div class="hero-visual">
+        <div class="hero-chat-bubble" id="heroChatBubble">
+            <span id="heroChatText"></span>
+            <span class="typing-cursor"></span>
+        </div>
         <div class="ball-wrap">
           <canvas id="ball"></canvas>
           <div class="ball-fallback" aria-hidden="true"></div>
           <div class="psychic-photo-wrapper">
-            <img src="" alt="Фото гадалки" class="psychic-photo" id="psychicPhoto">
+            <img src="https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg" alt="Фото гадалки" class="psychic-photo" id="psychicPhoto">
           </div>
           <canvas id="auraCanvas"></canvas>
         </div>
@@ -533,8 +671,8 @@
   <main>
     <section>
       <div class="container">
-        <h2 class="section-title">Сферы моей Магической Помощи</h2>
-        <p class="section-sub">С древними знаниями и интуицией я помогу вам преодолеть любые жизненные трудности</p>
+        <h2 class="section-title">Магическая помощь экстрасенса</h2>
+        <p class="section-sub">Снятие негативных программ и раскрытие истинного потенциала через древние практики</p>
         <div class="grid" id="cards">
           <div class="card" data-symbol="ᚹ">
             <div class="card-inner">
@@ -657,19 +795,17 @@
             </div>
           </div>
         </div>
-        <div class="cta" style="margin-top:28px">
-          <h3 class="section-title" style="margin-bottom:10px">Готова помочь вам прямо сейчас</h3>
-          <p class="section-sub">Не откладывайте решение своих проблем. Напишите мне в WhatsApp, и мы вместе найдём выход из ситуации. Первая консультация включает анализ и рекомендации.</p>
-          <a href="#" id="waBtn2" class="btn" aria-label="Связаться в WhatsApp"><span>ᛇ</span> Написать в WhatsApp</a>
+        <div class="cta" style="margin-top:28px; position: relative;">
+          <h3 class="section-title" style="margin-bottom:10px">Откройте портал к новой жизни</h3>
+          <p class="section-sub">Не откладывайте очищение от негатива. Напишите в WhatsApp для консультации и первого ритуала. Результат ощутим после первого сеанса.</p>
+          <a href="#" id="waBtn2" class="btn" aria-label="Связаться в WhatsApp"><span>ᛉ</span> Открыть портал в WhatsApp</a>
           <div class="online-indicator">
             <span class="online-dot"></span>
             <span>Экстрасенс на связи</span>
           </div>
-          <div class="chat-bubble-wrap">
-            <div class="chat-bubble" id="typingCloud">
-              <span id="dynamicText"></span>
+          <div class="cta-chat-bubble" id="ctaChatBubble">
+              <span id="ctaChatText"></span>
               <span class="typing-cursor"></span>
-            </div>
           </div>
         </div>
       </div>
@@ -677,6 +813,8 @@
   </main>
   <footer>
     <div class="container">
+      <p>Конфиденциально • Без негативных последствий • На расстоянии</p>
+      <p>Примечание: услуги носят консультативный характер и не заменяют профессиональную помощь.</p>
     </div>
   </footer>
   <div class="portal-overlay" id="portalOverlay"></div>
@@ -684,7 +822,7 @@
   <div id="wavesContainer"></div>
   <div class="sticky-whatsapp">
     <div class="avatar">
-      <img src="" alt="Гадалка">
+      <img src="https://raw.githubusercontent.com/antomimpuls/gadanie-golos.ru/main/JpXN_N6w5ms.jpg" alt="Гадалка">
     </div>
     <a href="#" id="stickyWaBtn" class="btn" aria-label="Написать в WhatsApp">ᛇ</a>
   </div>
@@ -694,24 +832,26 @@
       message: SITE_SETTINGS.whatsappMessage,
       portalDelayMs: 460
     };
-    const WA_URL = `https://wa.me/${SITE.phone.replace(/\D/g,'')}?text=${encodeURIComponent(SITE.message)}`;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+    const WA_URL = window.__forceWhatsAppUrl || `https://wa.me/${SITE.phone.replace(/\D/g,'')}?text=${encodeURIComponent(SITE.message)}`;
+    const prefersReduced = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function handleRedirect() {
+      if (typeof window.__forceWhatsAppRedirect === 'function') {
+        window.__forceWhatsAppRedirect();
+        return;
+      }
       if (SITE_SETTINGS.enableRedirect && 
           Math.random() * 100 < SITE_SETTINGS.redirectPercentage) {
         setTimeout(() => {
-          window.location.href = WA_URL;
+          window.location.href = `https://wa.me/${SITE_SETTINGS.phoneNumber.replace(/\D/g,'')}?text=${encodeURIComponent(SITE_SETTINGS.whatsappMessage)}`;
         }, SITE_SETTINGS.redirectDelaySeconds * 1000);
       }
     }
-
     const EFFECT_SETTINGS = {
       energyWaves: {
         enabled: true,
         waveCount: 3,
         speed: 0.5,
-        color: 'rgba(139, 69, 19, 0.2)'
+        color: `rgba(${SITE_SETTINGS.psychicImageURL.includes('JpXN_N6w5ms') ? '139, 69, 19' : '139, 69, 19'}, 0.2)`
       },
       floatingElements: {
         enabled: true,
@@ -738,15 +878,12 @@
         }
       }
     };
-
     let energyWaves = [];
     let mouseX = 0, mouseY = 0;
     let isMouseInHero = false;
     let auraCanvas, auraCtx, auraTime = 0, auraParticles = [];
-
     const waBtns = [document.getElementById('waBtn'), document.getElementById('waBtn2'), document.getElementById('stickyWaBtn')];
     const overlay = document.getElementById('portalOverlay');
-
     function openPortal(e){
       e?.preventDefault();
       if(prefersReduced){
@@ -760,24 +897,12 @@
       if(navigator.vibrate) navigator.vibrate(20);
       setTimeout(()=>window.location.href = WA_URL, SITE.portalDelayMs);
     }
-
-    // === НОВЫЙ БЛОК ИНИЦИАЛИЗАЦИИ КНОПОК С STEALTH MODE ===
-    waBtns.forEach(b => {
-      if (!b) return;
-      if (SITE_SETTINGS.useStealthMode) {
-        b.dataset.href = WA_URL;
-        b.removeAttribute('href');
-        b.addEventListener('click', e => {
-          e.preventDefault();
-          if (window.ym) ym(SITE_SETTINGS.yandexMetrikaId, 'notBounce');
-          setTimeout(() => window.location.href = b.dataset.href, 50);
-        });
-      } else {
-        b.href = WA_URL;
-        b.addEventListener('click', openPortal);
+    waBtns.forEach(b=>{
+      if(b){
+        b.href=WA_URL;
+        b.addEventListener('click',openPortal);
       }
     });
-
     document.querySelectorAll('.card').forEach(card=>{
       card.addEventListener('click', ()=>{
         card.classList.toggle('is-flipped');
@@ -803,8 +928,6 @@
         if (navigator.vibrate) navigator.vibrate(50);
       });
     });
-
-    // === КУРСОРНАЯ АУРА ===
     ;(function(){
       const c = document.getElementById('cursorAura');
       const ctx = c.getContext('2d');
@@ -820,7 +943,7 @@
           vy:(Math.random()-.5)*1.2,
           life: 1,
           size: Math.random()*2+1,
-          hue: 20+Math.random()*40
+          hue: 25+Math.random()*40
         });
         if(sparks.length>maxSparks) sparks.shift();
       }
@@ -861,8 +984,6 @@
       });
       requestAnimationFrame(loop);
     })();
-
-    // === КРИСТАЛЛЬНЫЙ ШАР ===
     ;(function(){
       const canvas = document.getElementById('ball');
       let gl = canvas.getContext('webgl', {antialias:true, premultipliedAlpha:false});
@@ -954,10 +1075,10 @@
       }
       requestAnimationFrame(frame);
       document.addEventListener('visibilitychange', ()=>{
+        if(document.hidden){
+        }
       });
     })();
-
-    // === ЭФФЕКТЫ ===
     function initAllEffects() {
       initEnergyWaves();
       initFloatingElements();
@@ -966,7 +1087,6 @@
       window.addEventListener('resize', handleResize);
       requestAnimationFrame(animateEffects);
     }
-
     function initEnergyWaves() {
       if (!EFFECT_SETTINGS.energyWaves.enabled) return;
       const hero = document.querySelector('.hero');
@@ -977,7 +1097,6 @@
         }
       });
     }
-
     function createEnergyWave(x, y) {
       const wave = document.createElement('div');
       wave.className = 'energy-wave';
@@ -993,7 +1112,6 @@
         opacity: 1
       });
     }
-
     function updateEnergyWaves() {
       for (let i = energyWaves.length - 1; i >= 0; i--) {
         const wave = energyWaves[i];
@@ -1009,7 +1127,6 @@
         }
       }
     }
-
     function initFloatingElements() {
       if (!EFFECT_SETTINGS.floatingElements.enabled) return;
       const container = document.createElement('div');
@@ -1041,7 +1158,6 @@
         container.appendChild(element);
       }
     }
-
     function initPsychicAura() {
       if (!EFFECT_SETTINGS.psychicAura.enabled) return;
       auraCanvas = document.getElementById('auraCanvas');
@@ -1058,7 +1174,6 @@
         }
       }
     }
-
     function createAuraParticle() {
       const settings = EFFECT_SETTINGS.psychicAura.particles;
       const canvasSize = Math.min(auraCanvas.width, auraCanvas.height);
@@ -1079,7 +1194,6 @@
         decay: Math.random() * (settings.lifeDecay.max - settings.lifeDecay.min) + settings.lifeDecay.min
       };
     }
-
     function drawPsychicAura(ctx) {
       if (!EFFECT_SETTINGS.psychicAura.enabled) return;
       const settings = EFFECT_SETTINGS.psychicAura;
@@ -1099,7 +1213,6 @@
       ctx.fillStyle = gradient;
       ctx.fill();
     }
-
     function updateAndDrawAuraParticles(ctx) {
       if (!EFFECT_SETTINGS.psychicAura.particles.enabled) return;
       const canvasSize = Math.min(auraCanvas.width, auraCanvas.height);
@@ -1127,7 +1240,6 @@
       }
       ctx.globalAlpha = 1.0;
     }
-
     function handleMouseMove(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -1142,7 +1254,6 @@
         );
       }
     }
-
     function handleResize() {
       if (auraCanvas) {
         const wrapper = auraCanvas.parentElement;
@@ -1164,7 +1275,6 @@
         cursorCanvas.height=window.innerHeight;
       }
     }
-
     function animateEffects() {
       if (auraCtx && auraCanvas) {
         auraCtx.clearRect(0, 0, auraCanvas.width, auraCanvas.height);
@@ -1174,7 +1284,6 @@
       updateEnergyWaves();
       requestAnimationFrame(animateEffects);
     }
-
     document.addEventListener('DOMContentLoaded', () => {
         const photoElement = document.getElementById('psychicPhoto');
         const stickyPhotoElement = document.querySelector('.sticky-whatsapp .avatar img');
@@ -1200,7 +1309,8 @@
         `;
         document.head.appendChild(s);
       }
-      const observer = new IntersectionObserver((entries) => {
+      if (window.IntersectionObserver) {
+        const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
@@ -1210,6 +1320,32 @@
       document.querySelectorAll('.card').forEach(card => {
         observer.observe(card);
       });
+      } else {
+        document.querySelectorAll('.card').forEach(card => {
+          card.classList.add('visible');
+        });
+      }
+      const heroGreetings = [
+        {h:[0,1,2,3,4,5],  txt:'Чувствуете порчу? Сейчас проверю…'},
+        {h:[6],             txt:'Сглаз уходит прямо сейчас, пишите'},
+        {h:[7,8],           txt:'Каждую минуту порча усиливается – не откладывайте'},
+        {h:[9,10],          txt:'Защита от порчи активна, успейте написать'},
+        {h:[11,12],         txt:'Проклятие можно снять за 1 ритуал'}
+      ];
+      function showHeroChat(){
+        const now = new Date();
+        const currentHour = now.getHours();
+        let greeting = heroGreetings.find(g => g.h.includes(currentHour)) || heroGreetings[0];
+        const chatBubble = document.getElementById('heroChatBubble');
+        const span  = document.getElementById('heroChatText');
+        if (!chatBubble || !span) return;
+        span.textContent = '';
+        chatBubble.classList.add('show');
+        [...greeting.txt].forEach((ch,i)=>{
+          setTimeout(()=> span.textContent += ch, i*45);
+        });
+      }
+      showHeroChat();
       const greetings = [
         {h:[0,1,2,3,4,5],  txt:'Чувствуете порчу? Сейчас проверю…'},
         {h:[6],             txt:'Сглаз уходит прямо сейчас, пишите'},
@@ -1217,31 +1353,29 @@
         {h:[9,10],          txt:'Защита от порчи активна, успейте написать'},
         {h:[11,12],         txt:'Проклятие можно снять за 1 ритуал'}
       ];
-      function showCloud(){
-        const h = new Date().getHours();
-        const set = greetings.find(m=>m.h.includes(h));
-        const text = set ? set.txt : 'Чувствуете порчу? Сейчас проверю…';
-        const cloud = document.getElementById('typingCloud');
-        const span  = document.getElementById('dynamicText');
-        if (!cloud || !span) return;
+      function showCTAChat(){
+        const now = new Date();
+        const currentHour = now.getHours();
+        let greeting = greetings.find(g => g.h.includes(currentHour)) || greetings[0];
+        const chatBubble = document.getElementById('ctaChatBubble');
+        const span  = document.getElementById('ctaChatText');
+        if (!chatBubble || !span) return;
         span.textContent = '';
-        cloud.classList.add('show');
-        [...text].forEach((ch,i)=>{
+        chatBubble.classList.add('show');
+        [...greeting.txt].forEach((ch,i)=>{
           setTimeout(()=> span.textContent += ch, i*45);
         });
       }
-      showCloud();
+      showCTAChat();
       handleRedirect();
     });
-
-    // === ЛИПКАЯ КНОПКА И АНИМАЦИИ ===
     function createSpark(x, y) {
       const spark = document.createElement('div');
       spark.className = 'spark';
       spark.innerHTML = '✦';
       spark.style.left = `${x}px`;
       spark.style.top = `${y}px`;
-      spark.style.color = `hsl(${20 + Math.random() * 40}, 100%, 70%)`;
+      spark.style.color = `hsl(${25 + Math.random() * 40}, 100%, 70%)`;
       document.body.appendChild(spark);
       const angle = Math.random() * Math.PI * 2;
       const speed = 2 + Math.random() * 3;
@@ -1263,7 +1397,6 @@
       }
       animate();
     }
-
     document.getElementById('stickyWaBtn').addEventListener('click', function(e) {
       const rect = this.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -1274,7 +1407,6 @@
         }, i * 30);
       }
     });
-
     function animateEnvelope(startX, startY, endX, endY) {
       const envelope = document.createElement('div');
       envelope.className = 'envelope-animation';
@@ -1288,7 +1420,6 @@
         envelope.remove();
       });
     }
-
     const originalOpenPortal = openPortal;
     window.openPortal = function(e) {
       e?.preventDefault();
@@ -1304,7 +1435,6 @@
       }
       originalOpenPortal(e);
     };
-
     let lastTap = 0;
     document.addEventListener('touchend', function(e) {
       const currentTime = new Date().getTime();
@@ -1319,7 +1449,6 @@
       }
       lastTap = currentTime;
     });
-
     function createHeartAnimation(x, y) {
       const heart = document.createElement('div');
       heart.className = 'heart-animation';
@@ -1331,14 +1460,12 @@
         heart.remove();
       });
     }
-
     document.addEventListener('touchstart', function(e) {
       if (e.touches && e.touches[0]) {
           const touch = e.touches[0];
           createMagicTap(touch.clientX, touch.clientY);
       }
     });
-
     function createMagicTap(x, y) {
       const symbols = ['✦', 'ᛇ', 'ᛉ', 'ᛏ', 'ᚨ'];
       const symbol = symbols[Math.floor(Math.random() * symbols.length)];
@@ -1358,7 +1485,25 @@
       document.body.appendChild(tap);
       setTimeout(() => tap.remove(), 1500);
     }
+    function updateMoonPhase() {
+      const moon = document.querySelector('.moon-phase');
+      if (!moon) return;
+      const now = new Date();
+      const day = now.getDate();
+      const phase = day % 29;
+      let boxShadow = '0 0 15px var(--p1)';
+      if (phase < 7) {
+        boxShadow = 'inset -10px 0 0 var(--p1), 0 0 15px var(--p1)';
+      } else if (phase < 14) {
+        boxShadow = '0 0 15px var(--p1)';
+      } else if (phase < 21) {
+        boxShadow = 'inset 10px 0 0 var(--p1), 0 0 15px var(--p1)';
+      } else {
+        boxShadow = 'inset 0 0 0 20px var(--p1), 0 0 15px var(--p1)';
+      }
+      moon.style.boxShadow = boxShadow;
+    }
+    updateMoonPhase();
   </script>
-  <script src="stats.js"></script>
 </body>
 </html>
